@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "MainLayout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PostEDucatioN</title>
+    <!-- Global Styles Starts-->
+    <link rel="icon" href="~/Public/Images/LOGO/favicon.png">
+    <link rel="stylesheet" href="~/Public/Vendors/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="~/Public/Vendors/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Public/CSS/Navandfooter.css">
+    <link rel="stylesheet" href="~/Public/Vendors/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/Public/CSS/mediaformainpage.css">
+    <!-- Global Styles Ends -->
+    <!-- Special styles for this page -->
+    @RenderSection("styles",false)
+    <!-- Special styles ends -->
+
+</head>
+
+
+<body>
+
+    <!-- Header starts -->
+    <header>
+        <nav class="container-fluid searchbar generaltab" id="navbar">
+            <div class="row fullwidthrow">
+                <div class="col-xl-4 col-sm-12 logo">
+                    <div class="logokeeper">
+                        <a href="@Url.Action("Index","Home")" class="text-white">
+                            <p class="logoname">PostEDucatioN</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-12 searchtab">
+                    <div class="searchinputkeeper">
+                        <input type="text" name="searchbar" id="searchbar" class="searchinp">
+                        <input type="button" class="searchbutton" />
+                        <i class='fas fa-search searchicon'></i>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-12 login d-flex justify-content-between align-items-center">
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <a class="text-center text-white loginwriting" href="javascript:document.getElementById('logoutForm').submit()"><span>Sign Out</span></a>
+
+                    }
+                    <a class="text-center text-white loginwriting" href="@Url.Action("Index","Manage")">
+                        Manage
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    @RenderBody()
+
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-3 pagekeeper">
+                    <a href="#" class="footer-item">
+                        About us
+                    </a>
+                </div>
+                <div class="col-3 pagekeeper">
+                    <a href="#" class="footer-item">
+                        Contact
+                    </a>
+                </div>
+                <div class="col-3 pagekeeper">
+                    <a href="#" class="footer-item">
+                        Terms and conditions
+                    </a>
+                </div>
+                <div class="col-3 pagekeeper">
+                    <a href="#" class="footer-item">
+                        Support
+                    </a>
+                </div>
+                <div class="col-12">
+                    <p class="text-center">
+                        PostEDucatioN &#9400; <small>All rights reserved</small>
+                    </p>
+                    <p class="text-center">
+                        <span>
+                            Follow us<span>
+                                <a href="https://www.facebook.com/tamerlanletiflii" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://instagram.com/tamerlanletifli1" target="_blank">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+
+<!-- Scripts -->
+<!-- Global scripts start -->
+<script>
+    window.onscroll = function () { myFunction() };
+    var navbar = document.getElementById("navbar");
+    var sticky = navbar.offsetTop;
+
+    function myFunction() {
+
+        if (window.pageYOffset > sticky) {
+            navbar.classList.add("sticky")
+        } else if (window.pageYOffset == 0) {
+            navbar.classList.remove("sticky");
+        }
+
+    }
+</script>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<!-- Global scripts end -->
+
+@RenderSection("scripts",false)
+
+
+
+</html>
+
+
+

@@ -1,0 +1,172 @@
+﻿@model PostEducatioN.Models.AllViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+@section styles{
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="~/Public/CSS/VideoMain.css" rel="stylesheet" />
+}
+
+@{
+
+    var video = Model.Videos.FirstOrDefault();
+    var videoautorid = video.ApplicationUserId;
+    var videoauthor = Model.Users.FirstOrDefault(a => a.Id == videoautorid);
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        @*Video Iteself*@
+        <div class="col-12 videokeeper">
+            <video style="width:100%;height:100%; max-height:60vh" allowfullscreen controls controlsList="nodownload">
+                <source src="~/Uploads/@video.VideoPath" />
+            </video>
+        </div>
+        <div id="flip" class=" col-12 detailstoggled">
+            <h3 class="videoname">@video.Name</h3><span class="text-grey">Click to see more details</span>
+        </div>
+        <div id="panel" class="partsofdetails col-12">
+            <hr />
+            <div class="row">
+                <div class="col-11 ml-3 pb-3 videosecription greybordered">
+                    <h6 class="text-blue mt-4">Video Description</h6>
+                    @video.Description
+                </div>
+                <div class="col-md-6 col-12 mt-4 mb-3 ">
+                    <div class="row bordercomments bluebordered">
+                        <div class="col-md-2 col-3 imagekeeper">
+                            <img src="~/Uploads/@videoauthor.ImagePath" style="width:10vh;height:10vh;" />
+                        </div>
+                        <div class="col-md-10 col-9">
+                            <h6 style="font-family: 'Roboto Mono', monospace;">@videoauthor.Name @videoauthor.Surname</h6>
+                            <a href="@Url.Action("Index","Authors" ,new { id = videoautorid })">Go to channel</a>
+                            <a href="#">Contact Seller</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class=" col-md-3 col-6 mt-3 likes">
+                    <h2 class="text-blue" style="font-family: 'Roboto Mono', monospace;">Likes</h2>
+                    @{
+                        var mylike = Model.Likes.FirstOrDefault(c => c.AuthorId == Model.ApplicationUser.Id && c.VideoId == video.Id);
+                    }
+                    @if (!Model.Likes.Exists(c => c.AuthorId == Model.ApplicationUser.Id && c.VideoId == video.Id))
+                    {
+                        <a href="@Url.Action("Like","Videos", new { id = video.Id, videoid = video.Id })"><i class="fas fa-thumbs-up" style="font-size:25px;margin-right:5px;color:grey"></i></a><a>Like it</a>
+                    }
+                    @if (Model.Likes.Exists(c => c.AuthorId == Model.ApplicationUser.Id && c.VideoId == video.Id))
+                    {
+                        <a href="@Url.Action("Dislike", "Videos", new { id = mylike.Id , videoid = video.Id})"><i class="fas fa-thumbs-up active" style="font-size:25px;margin-right:5px"></i></a><a>Dislike it</a>
+                    }
+
+
+
+                    @if (Model.Likes.Count == 0)
+                    {
+                        <p>No any like</p>
+                    }
+                    else if (Model.Likes.Count == 1)
+                    {
+                        <p>@Model.Likes.Count like</p>
+                    }
+                    else
+                    {
+                        <p>@Model.Likes.Count likes</p>
+                    }
+
+                </div>
+                <div class="col-md-3 col-12 mt-3">
+                    <h2 style="font-family: 'Roboto Mono', monospace;margin-bottom:0;" class="text-blue">Price</h2>
+                    <p style="margin-bottom:3px;letter-spacing:2px">15$</p>
+                    <button class="btn btn-outline-success">BUY</button>
+                </div>
+                <div class="col-12 col-md-6">
+                    <p class="text-blue" style="margin-bottom: 0px;">Added on :</p><p class="text-grey">@video.DateAdded</p>
+
+                </div>
+            </div>
+            <hr />
+        </div>
+
+
+
+        <div class="col-12 mt-3">
+            <h2 class="text-blue" style="font-family: 'Roboto Mono', monospace;">Comments</h2>
+        </div>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-8">
+                    @if (Model.Comments.Count != 0)
+                    {
+                        foreach (var comment in Model.Comments)
+                        {
+
+                            var commentedid = comment.AuthorId;
+                            var user = Model.Users.FirstOrDefault(c => c.Id == commentedid);
+
+                            <div class="col-md-12 mt-3 mb-3 ">
+                                <div class="row bordercomments">
+                                    <div class="col-md-1 col-3 imagekeeper">
+                                        <img src="~/Uploads/@user.ImagePath" style="width:10vh;height:10vh;" />
+                                    </div>
+                                    <div class="col-md-11 col-9">
+
+                                        <h6 style="font-family: 'Roboto Mono', monospace; font-weight:bold">@user.Name @user.Surname</h6>
+                                        @comment.Text
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <p>There is no any comment</p>
+                        </div>
+                    }
+                </div>
+                <div class="col-4">
+                    <ul class="list-group">
+                        @foreach (var category in Model.Categories.Take(4))
+                        {
+                            <li class="list-group-item">
+                                <a href="@Url.Action("SpecialCategory","Categories", new { category.Id })">
+                                    <i class="@category.Icon" style="margin-right:5px;"></i>@category.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-12 mt-3">
+            <h2 class="text-blue" style="font-family: 'Roboto Mono', monospace;">Write your comment</h2>
+        </div>
+
+        <div class="col-6">
+            <form method="post" action="@Url.Action("CreateComment","Videos")" class="ml-3">
+                @Html.AntiForgeryToken()
+                <textarea rows="4" cols="50" name="Text" style="background-color: #f4f2f3;"></textarea>
+                <input hidden name="VideoId" value="@video.Id" />
+                <br />
+                <button type="submit" class="btn btn-outline-success mb-3">Submit</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section scripts{
+    @*<script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="~/Public/JS/VideoJs.js"></script>
+}

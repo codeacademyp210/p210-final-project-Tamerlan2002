@@ -1,0 +1,43 @@
+@media screen and (max-width:576px)
+{
+    .logo .logokeeper .logoname{
+        font-size: 20px;
+        text-align: center
+    }
+    .generaltab .logokeeper{
+        padding-left: 0%;
+        padding-top: 2%;
+    }
+    .generaltab .slogan{
+        margin-bottom: 3%;
+        margin-top: 1%;
+    }
+    .mainslidersection .prev,.mainslidersection .next,.mainslidersection .text {
+        font-size: 11px !important;
+    }
+    .mainslidersection .slideshow-container{
+        height: 20vh !important;
+    }
+    .mainslidersection .slideshow-container .mySlides {
+        height:100% !important;
+    }
+
+    
+}
+@media screen and (max-width:1200px)
+{
+    .logo .logokeeper .logoname{
+        font-size: 20px;
+        text-align: center
+    }
+    .generaltab .logokeeper{
+        padding-left: 0%;
+        padding-top: 2%;
+    }
+    .generaltab .slogan{
+        margin-bottom: 3%;
+        margin-top: 1%;
+    }
+    
+    
+}

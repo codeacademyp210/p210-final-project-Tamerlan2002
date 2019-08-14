@@ -1,0 +1,35 @@
+﻿.bordercomments {
+    border: 1px solid grey;
+    padding: 2% 1%;
+    margin: 0% 0%;
+}
+
+.text-blue {
+    color: #0d1987;
+}
+
+.bluebordered {
+    border: 1px solid #0d1987 !important;
+}
+
+.active {
+    color: #28a745 !important;
+}
+#panel{
+    display:none;
+}
+.detailstoggled .videoname{
+    font-size:25px;
+    cursor:pointer;
+}
+.text-grey{
+    color:grey;
+    cursor:pointer;
+}
+.greybordered{
+    border:1px solid lightgrey
+}
+hr {
+    border-top: 1px solid #0d1987;
+    opacity:0.4
+}

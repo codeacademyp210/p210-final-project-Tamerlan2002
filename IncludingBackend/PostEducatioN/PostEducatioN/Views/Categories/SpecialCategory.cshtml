@@ -1,0 +1,24 @@
+﻿@model PostEducatioN.Models.AllViewModel
+@{
+    ViewBag.Title = "SpecialCategory";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var video in Model.Videos)
+        {
+            <div class="col-6 col-md-3">
+                <a href="@Url.Action("Index","Videos", new { id = video.Id })">
+                    <video width="150"
+                           height="200">
+                        <source src="~/Uploads/@video.VideoPath" />
+                    </video>
+                </a>
+                <h6>@video.Name</h6>
+            </div>
+        }
+
+    </div>
+</div>
+

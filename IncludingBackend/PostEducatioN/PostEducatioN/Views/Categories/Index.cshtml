@@ -1,0 +1,23 @@
+﻿@model PostEducatioN.Models.AllViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="container" style="padding:2% 0% 20% 0%">
+    <div class="row">
+        <div class="col-12">
+            <ul class="list-group">
+                @foreach (var category in Model.Categories.OrderBy(c => c.Name))
+                {
+                    <li class="list-group-item">
+                        <a href="@Url.Action("SpecialCategory", "Categories", new {id = category.Id })">
+                            <i class="@category.Icon" style="color:grey;margin-right:3px"></i>@category.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+

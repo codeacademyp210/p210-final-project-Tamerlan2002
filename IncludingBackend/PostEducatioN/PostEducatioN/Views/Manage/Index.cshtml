@@ -1,0 +1,57 @@
+﻿@model PostEducatioN.Models.ApplicationUser
+@{
+    ViewBag.Title = "Manage";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+
+<div class="container" style="padding-top:5%;padding-bottom:5%">
+    <div class="row">
+        <div class="col-4">
+            <h2>Personal Details</h2>
+
+            <div>
+                <h4>Change your account settings</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>Profile Picture</dt>
+                    <img src="~/Uploads/@Model.ImagePath" width="200" height="200"  />
+                    <dt>Name:</dt>
+                    <dd>
+                        @Model.Name
+                    </dd>
+                    <dt>Surname:</dt>
+                    <dd>
+                        @Model.Surname
+                    </dd>
+                    <dt>Email:</dt>
+                    <dd>
+                        @Model.Email
+                    </dd>
+                    <dt>Phone Number:</dt>
+                    <dd>
+                        @Model.PhoneNumber
+                    </dd>
+                    <dt>Change your password here:</dt>
+                    <dd>
+                        @Html.ActionLink("Click to change", "ChangePassword")
+                    </dd>
+
+                </dl>
+            </div>
+            @foreach (var video in ViewBag.Videos)
+            {
+            <video width="200"
+                   height="200"
+                   controls
+                   id="player">
+                <source src="~/Uploads/@video.VideoPath" type="video/mp4">
+            </video>
+                <p>@video.Name</p>
+                <p>@video.DateAdded</p>
+
+            }
+
+        </div>
+    </div>
+</div>
